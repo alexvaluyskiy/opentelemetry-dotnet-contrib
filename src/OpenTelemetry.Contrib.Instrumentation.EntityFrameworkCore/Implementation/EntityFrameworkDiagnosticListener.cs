@@ -202,7 +202,7 @@ namespace OpenTelemetry.Contrib.Instrumentation.EntityFrameworkCore.Implementati
                         {
                             if (activity.IsAllDataRequested)
                             {
-                                activity.SetStatus(Status.Ok);
+                                activity.SetStatus(Status.Unset);
                             }
                         }
                         finally
