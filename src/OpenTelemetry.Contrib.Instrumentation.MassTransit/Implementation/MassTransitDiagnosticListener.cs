@@ -43,6 +43,8 @@ namespace OpenTelemetry.Contrib.Instrumentation.MassTransit.Implementation
         {
             if (this.options.TracedOperations != null && !this.options.TracedOperations.Contains(activity.OperationName))
             {
+                MassTransitInstrumentationEventSource.Log.RequestIsFilteredOut(activity.OperationName);
+                activity.IsAllDataRequested = false;
                 return;
             }
 
@@ -56,15 +58,22 @@ namespace OpenTelemetry.Contrib.Instrumentation.MassTransit.Implementation
         {
             if (this.options.TracedOperations != null && !this.options.TracedOperations.Contains(activity.OperationName))
             {
+                MassTransitInstrumentationEventSource.Log.RequestIsFilteredOut(activity.OperationName);
+                activity.IsAllDataRequested = false;
                 return;
             }
 
             if (activity.IsAllDataRequested)
             {
-                this.TransformMassTransitTags(activity);
+                try
+                {
+                    this.TransformMassTransitTags(activity);
+                }
+                catch (Exception ex)
+                {
+                    MassTransitInstrumentationEventSource.Log.EnrichmentException(ex);
+                }
             }
-
-            activity.Stop();
         }
 
         private string GetDisplayName(Activity activity)

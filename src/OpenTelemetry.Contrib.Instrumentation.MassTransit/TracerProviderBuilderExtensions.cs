@@ -45,7 +45,11 @@ namespace OpenTelemetry.Trace
 
             builder.AddInstrumentation(() => new MassTransitInstrumentation(options));
             builder.AddSource(MassTransitDiagnosticListener.ActivitySourceName);
-            builder.AddLegacyActivity("CallEntityFrameworkCore");
+
+            builder.AddLegacyActivity(OperationName.Consumer.Consume);
+            builder.AddLegacyActivity(OperationName.Consumer.Handle);
+            builder.AddLegacyActivity(OperationName.Transport.Send);
+            builder.AddLegacyActivity(OperationName.Transport.Receive);
 
             return builder;
         }

@@ -265,11 +265,11 @@ namespace OpenTelemetry.Contrib.Instrumentation.MassTransit.Tests
                 }
             }
 
-            Assert.Equal(4, activityProcessor.Invocations.Count);
+            Assert.Equal(8, activityProcessor.Invocations.Count);
 
             var consumes = this.GetActivitiesFromInvocationsByOperationName(activityProcessor.Invocations, operationName);
 
-            Assert.Single(consumes);
+            Assert.Equal(2, consumes.Count());
         }
 
         private IEnumerable<Activity> GetActivitiesFromInvocationsByOperationName(IEnumerable<IInvocation> invocations, string operationName)
