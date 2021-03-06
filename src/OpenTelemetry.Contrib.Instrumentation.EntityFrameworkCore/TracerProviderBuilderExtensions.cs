@@ -46,7 +46,6 @@ namespace OpenTelemetry.Trace
             builder.AddInstrumentation(() => new EntityFrameworkInstrumentation(options));
 
             builder.AddSource(EntityFrameworkDiagnosticListener.ActivitySourceName);
-            builder.AddLegacyActivity("CallEntityFrameworkCore");
 
             return builder;
         }
