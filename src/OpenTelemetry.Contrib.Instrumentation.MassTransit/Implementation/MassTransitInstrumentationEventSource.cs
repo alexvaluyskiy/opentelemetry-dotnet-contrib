@@ -31,7 +31,7 @@ namespace OpenTelemetry.Contrib.Instrumentation.MassTransit.Implementation
         [Event(1, Message = "Request is filtered out.", Level = EventLevel.Verbose)]
         public void RequestIsFilteredOut(string eventName)
         {
-            this.WriteEvent(2, eventName);
+            this.WriteEvent(1, eventName);
         }
 
         [NonEvent]
@@ -46,7 +46,7 @@ namespace OpenTelemetry.Contrib.Instrumentation.MassTransit.Implementation
         [Event(2, Message = "Enrich threw exception. Exception {0}.", Level = EventLevel.Error)]
         public void EnrichmentException(string exception)
         {
-            this.WriteEvent(4, exception);
+            this.WriteEvent(2, exception);
         }
     }
 }
